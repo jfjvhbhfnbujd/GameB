@@ -15,17 +15,20 @@ public class Shoot1 : MonoBehaviour
     }
     void Update()
     {
-      
+        
+
     }
     IEnumerator BulletSpawn()
     {
-        yield return new WaitForSeconds(1);
-        Instantiate(projectilePrefab, projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
-        
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            Instantiate(projectilePrefab, projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
-
+        
 
 
         collision.transform.position = Respawn.transform.position;
