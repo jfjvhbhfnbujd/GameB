@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Shoot1 : MonoBehaviour
 {
-    public GameObject projectilePrefab; //projectile
+    public GameObject projectilePrefab;//projectile
+
     public GameObject projectileSpawnPoint; //spawnpoint
+   
     public float spawnTime; //spawner time
-    public GameObject Respawn;
+
+    public GameObject Respawn; //respawn
+
+    public bool HasPowerUp;
+
+    public float shootTime; //shooting time
     void Start()
     {
 
@@ -22,16 +29,31 @@ public class Shoot1 : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(shootTime);
             Instantiate(projectilePrefab, projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
+            
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        
-
-
         collision.transform.position = Respawn.transform.position;
+        
+        if (gameObject.CompareTag("Player") && HasPowerUp == true)
+        {
+            shootTime = 1;
+        }
+    }
+    IEnumerator PowerUp()
+    {
+        if (gameObject.CompareTag("Player") && HasPowerUp == true)
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(shootTime);
+                shootTime = 1;
+            }
+            
+        }
     }
 
 }

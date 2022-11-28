@@ -20,6 +20,7 @@ public class projectileControl : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
@@ -30,6 +31,7 @@ public class projectileControl : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+        
     }
     IEnumerator BulletSpawn()
     {

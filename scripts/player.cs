@@ -10,10 +10,14 @@ public class player : MonoBehaviour
     private float horizontalInput;
     public float moveSpeed;
 
-    public bool isPoweredUp = false;
-    public GameObject respawn;
+   
+    public GameObject respawn; //respawn
+    public bool HasPowerUp; //powerup
+    public GameObject projectileSpawnPoint; //bullet spawn
+    public GameObject projectilePrefab; //the bullet
+    public ParticleSystem respawnParticles; //particles
+    public float shootTime; //shoot time
 
-    public ParticleSystem respawnParticles;
     
     // Start is called before the first frame update
     void Start()
@@ -34,14 +38,19 @@ public class player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject.CompareTag("Bullet") && isPoweredUp == false)
+       
+        if (other.gameObject.CompareTag("Bullet") && HasPowerUp == false)
+            {
+                transform.position = respawn.transform.position;
+                 respawnParticles.Play();
+            }
+        if (other.gameObject.CompareTag("PowerUp"))
         {
-            transform.position = respawn.transform.position;
-            respawnParticles.Play();
-
+            Destroy(other.gameObject);
+            HasPowerUp = true;
+            
         }
 
-    }
-
+      }
 
 }
