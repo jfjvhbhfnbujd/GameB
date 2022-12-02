@@ -17,8 +17,9 @@ public class player : MonoBehaviour
     public GameObject projectilePrefab; //the bullet
     public ParticleSystem respawnParticles; //particles
     public float shootTime; //shoot time
-
+    public bool lifes = false;
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +32,12 @@ public class player : MonoBehaviour
         //move
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.left * Time.deltaTime * moveSpeed * horizontalInput);
-
+        if(lifes == true)
+        {
+            Instantiate(projectilePrefab, projectileSpawnPoint.transform.position, projectileSpawnPoint.transform.rotation);
+        }
     }
+
     
 
     private void OnTriggerEnter(Collider other)
@@ -43,6 +48,7 @@ public class player : MonoBehaviour
             {
                 transform.position = respawn.transform.position;
                  respawnParticles.Play();
+            lifes = true; 
             }
         if (other.gameObject.CompareTag("PowerUp"))
         {
@@ -50,7 +56,5 @@ public class player : MonoBehaviour
             HasPowerUp = true;
             
         }
-
       }
-
 }
